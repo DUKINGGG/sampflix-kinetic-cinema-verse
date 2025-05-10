@@ -46,39 +46,17 @@ const Browse = () => {
     );
   }
 
-  // Featured content for the hero section
-  const featuredMovie = movies.find(movie => movie.isFeatured);
-  const featuredSeries = series.find(series => series.isFeatured);
-
   // Get new releases
   const newReleases = [...movies, ...series].filter(content => content.isNew);
   
-  // Organize movies by genre
-  const moviesByGenre: Record<string, typeof movies> = {};
-  movies.forEach(movie => {
-    movie.genre.forEach(genre => {
-      if (!moviesByGenre[genre]) {
-        moviesByGenre[genre] = [];
-      }
-      moviesByGenre[genre].push(movie);
-    });
-  });
-  
-  // Organize series by genre
-  const seriesByGenre: Record<string, typeof series> = {};
-  series.forEach(show => {
-    show.genre.forEach(genre => {
-      if (!seriesByGenre[genre]) {
-        seriesByGenre[genre] = [];
-      }
-      seriesByGenre[genre].push(show);
-    });
-  });
-
   // Helper function to determine if content is a Movie or Series
   const isMovie = (content: ContentItem): content is Movie => {
     return 'duration' in content;
   };
+
+  // Featured Series for dedicated section
+  const featuredSeries = series.filter(s => s.isFeatured);
+  const popularSeries = series.slice(0, 6); // Get first 6 series for popular section
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -139,32 +117,62 @@ const Browse = () => {
       
       <main className="flex-grow pt-8 pb-20">
         <div className="container mx-auto px-4">
-          {/* Continue Watching */}
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-6">Continue Watching</h2>
-            <div className="content-row">
-              {movies.slice(0, 4).map((movie) => (
+          {/* TV Series Section - Moved to top priority */}
+          <section className="mb-10 animate-fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">
+                <span className="sampflix-gradient-text">Featured TV Shows</span>
+              </h2>
+              <Link to="/series" className="text-white/80 hover:text-white text-sm font-medium flex items-center transition-colors">
+                View All <span className="ml-1">→</span>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {featuredSeries.map((show) => (
                 <Link 
-                  key={movie.id} 
-                  to={`/movie/${movie.id}`}
-                  className="content-card min-w-[250px] w-[250px]"
+                  key={show.id} 
+                  to={`/series/${show.id}`}
+                  className="content-card group animate-fade-in"
+                  style={{ animationDelay: '0.1s' }}
                 >
-                  <div className="relative h-[140px]">
+                  <div className="relative pb-[150%]">
                     <img 
-                      src={movie.thumbnailUrl} 
-                      alt={movie.title}
-                      className="w-full h-full object-cover"
+                      src={show.thumbnailUrl} 
+                      alt={show.title}
+                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between">
-                      <span className="text-sm font-medium">{movie.title}</span>
-                      <div className="h-1 w-full max-w-[70%] bg-white/30 rounded-full overflow-hidden ml-4">
-                        <div className="h-full bg-sampflix-purple w-[60%]"></div>
+                    {show.isNew && (
+                      <div className="absolute top-2 right-2 bg-sampflix-bright-orange text-white text-xs font-medium px-2 py-1 rounded">
+                        NEW
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 to-transparent">
+                      <h3 className="text-white font-medium line-clamp-1">{show.title}</h3>
+                      <div className="flex items-center text-xs mt-1">
+                        <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
                       </div>
                     </div>
                   </div>
                 </Link>
               ))}
+            </div>
+            
+            {/* Top genres preview */}
+            <div className="mt-8">
+              <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+                <Link to="/series?genre=Drama" className="px-6 py-3 bg-sampflix-dark-purple/50 rounded-md border border-sampflix-purple/30 text-sm font-medium whitespace-nowrap hover:bg-sampflix-purple/20 transition-all">
+                  Drama
+                </Link>
+                <Link to="/series?genre=Sci-Fi" className="px-6 py-3 bg-sampflix-dark-purple/50 rounded-md border border-sampflix-purple/30 text-sm font-medium whitespace-nowrap hover:bg-sampflix-purple/20 transition-all">
+                  Sci-Fi
+                </Link>
+                <Link to="/series?genre=Thriller" className="px-6 py-3 bg-sampflix-dark-purple/50 rounded-md border border-sampflix-purple/30 text-sm font-medium whitespace-nowrap hover:bg-sampflix-purple/20 transition-all">
+                  Thriller
+                </Link>
+                <Link to="/series?genre=Survival" className="px-6 py-3 bg-sampflix-dark-purple/50 rounded-md border border-sampflix-purple/30 text-sm font-medium whitespace-nowrap hover:bg-sampflix-purple/20 transition-all">
+                  Survival
+                </Link>
+              </div>
             </div>
           </section>
           
@@ -207,73 +215,69 @@ const Browse = () => {
             </section>
           )}
           
-          {/* Movies by Genre */}
-          {Object.entries(moviesByGenre).map(([genre, genreMovies]) => (
-            <section key={genre} className="mb-10">
-              <h2 className="text-2xl font-bold mb-6">{genre} Movies</h2>
-              <div className="content-row">
-                {genreMovies.map((movie) => (
-                  <Link 
-                    key={movie.id} 
-                    to={`/movie/${movie.id}`}
-                    className="content-card min-w-[200px] w-[200px]"
-                  >
-                    <div className="relative pb-[150%]">
-                      <img 
-                        src={movie.thumbnailUrl} 
-                        alt={movie.title}
-                        className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                        <div>
-                          <h3 className="text-white font-medium">{movie.title}</h3>
-                          <div className="flex items-center text-xs mt-1">
-                            <span>{movie.year}</span>
-                            <span className="mx-1">•</span>
-                            <span>{movie.duration}</span>
-                          </div>
+          {/* Popular Series Section */}
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold mb-6">Popular Series</h2>
+            <div className="content-row">
+              {popularSeries.map((show) => (
+                <Link 
+                  key={show.id} 
+                  to={`/series/${show.id}`}
+                  className="content-card min-w-[200px] w-[200px]"
+                >
+                  <div className="relative pb-[150%]">
+                    <img 
+                      src={show.thumbnailUrl} 
+                      alt={show.title}
+                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
+                      <div>
+                        <h3 className="text-white font-medium">{show.title}</h3>
+                        <div className="flex items-center text-xs mt-1">
+                          <span>{show.year}</span>
+                          <span className="mx-1">•</span>
+                          <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
           
-          {/* Series by Genre */}
-          {Object.entries(seriesByGenre).map(([genre, genreSeries]) => (
-            <section key={genre} className="mb-10">
-              <h2 className="text-2xl font-bold mb-6">{genre} TV Shows</h2>
-              <div className="content-row">
-                {genreSeries.map((show) => (
-                  <Link 
-                    key={show.id} 
-                    to={`/series/${show.id}`}
-                    className="content-card min-w-[200px] w-[200px]"
-                  >
-                    <div className="relative pb-[150%]">
-                      <img 
-                        src={show.thumbnailUrl} 
-                        alt={show.title}
-                        className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                        <div>
-                          <h3 className="text-white font-medium">{show.title}</h3>
-                          <div className="flex items-center text-xs mt-1">
-                            <span>{show.year}</span>
-                            <span className="mx-1">•</span>
-                            <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
-                          </div>
+          {/* Featured Movie Section */}
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold mb-6">Featured Movies</h2>
+            <div className="content-row">
+              {movies.filter(movie => movie.isFeatured).map((movie) => (
+                <Link 
+                  key={movie.id} 
+                  to={`/movie/${movie.id}`}
+                  className="content-card min-w-[200px] w-[200px]"
+                >
+                  <div className="relative pb-[150%]">
+                    <img 
+                      src={movie.thumbnailUrl} 
+                      alt={movie.title}
+                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
+                      <div>
+                        <h3 className="text-white font-medium">{movie.title}</h3>
+                        <div className="flex items-center text-xs mt-1">
+                          <span>{movie.year}</span>
+                          <span className="mx-1">•</span>
+                          <span>{movie.duration}</span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
       

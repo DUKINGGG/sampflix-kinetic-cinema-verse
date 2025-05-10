@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { User, LogOut, Search, Menu, X } from "lucide-react";
 import { useApp } from '@/contexts/AppContext';
 import SampflixLogo from './SampflixLogo';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
 const Header = () => {
   const { auth, logout } = useApp();
@@ -48,20 +50,82 @@ const Header = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           {auth.isAuthenticated && (
-            <>
-              <Link to="/browse" className="text-white hover:text-sampflix-purple transition-colors">
-                Home
-              </Link>
-              <Link to="/movies" className="text-white hover:text-sampflix-purple transition-colors">
-                Movies
-              </Link>
-              <Link to="/series" className="text-white hover:text-sampflix-purple transition-colors">
-                TV Shows
-              </Link>
-              <Link to="/search" className="text-white hover:text-sampflix-purple transition-colors">
-                <Search size={20} />
-              </Link>
-            </>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link to="/browse" className="text-white hover:text-sampflix-purple transition-colors">
+                    Home
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link to="/movies" className="text-white hover:text-sampflix-purple transition-colors">
+                    Movies
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent text-white hover:text-sampflix-purple">
+                    TV Shows
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      <li className="row-span-3">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-sampflix-purple/50 to-sampflix-dark-purple p-6 no-underline outline-none focus:shadow-md"
+                            to="/series"
+                          >
+                            <div className="mb-2 mt-4 text-lg font-medium text-white">
+                              All TV Shows
+                            </div>
+                            <p className="text-sm leading-tight text-white/70">
+                              Browse our complete collection of TV series
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <Link
+                          to="/series?genre=Drama"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-sampflix-purple/20 focus:bg-sampflix-purple/20"
+                        >
+                          <div className="text-sm font-medium leading-none text-white">Drama</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Compelling stories with deep character development
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/series?genre=Sci-Fi"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-sampflix-purple/20 focus:bg-sampflix-purple/20"
+                        >
+                          <div className="text-sm font-medium leading-none text-white">Sci-Fi</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Futuristic and mind-bending series
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/series?genre=Thriller"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-sampflix-purple/20 focus:bg-sampflix-purple/20"
+                        >
+                          <div className="text-sm font-medium leading-none text-white">Thriller</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Suspenseful shows that keep you on the edge of your seat
+                          </p>
+                        </Link>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link to="/search" className="text-white hover:text-sampflix-purple transition-colors">
+                    <Search size={20} />
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           )}
           
           {/* Auth Buttons or User Menu */}

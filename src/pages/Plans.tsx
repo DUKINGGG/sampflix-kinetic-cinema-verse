@@ -5,9 +5,10 @@ import { useApp } from '@/contexts/AppContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { plans } from '@/data/plans';
-import { CheckCircle, CreditCard, Sparkles, Shield } from 'lucide-react';
+import { CheckCircle, CreditCard, Sparkles, Shield, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
+import PaymentCard from '@/components/PaymentCard';
 
 const Plans = () => {
   const { auth, selectPlan } = useApp();
@@ -16,6 +17,8 @@ const Plans = () => {
   const preSelectedPlan = searchParams.get('selected');
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [showPaymentMethod, setShowPaymentMethod] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("credit-card");
 
   useEffect(() => {
     // If user is not authenticated, redirect to signup
@@ -39,6 +42,12 @@ const Plans = () => {
 
   const handleSelectPlan = (planId: string) => {
     setSelectedPlan(planId);
+    // Only show payment method for premium plans
+    if (planId === 'premium-plan' || planId === 'master-plan') {
+      setShowPaymentMethod(true);
+    } else {
+      setShowPaymentMethod(false);
+    }
   };
 
   const handleConfirmPlan = async () => {
@@ -55,6 +64,12 @@ const Plans = () => {
       selectPlan(plan.id);
       toast.success(`You've selected the ${plan.name} plan`);
       navigate('/browse');
+      return;
+    }
+
+    // For paid plans, check if payment method is selected
+    if (!selectedPaymentMethod) {
+      toast.error("Please select a payment method");
       return;
     }
 
@@ -149,6 +164,93 @@ const Plans = () => {
               </div>
             ))}
           </div>
+          
+          {showPaymentMethod && (
+            <div className="mt-12 animate-fade-in">
+              <h3 className="text-xl font-bold mb-6 text-center">
+                <span className="sampflix-gradient-text">Select Payment Method</span>
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                <div 
+                  onClick={() => setSelectedPaymentMethod("credit-card")}
+                  className={`sampflix-card p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
+                    selectedPaymentMethod === "credit-card" ? 'border-2 border-sampflix-bright-blue' : ''
+                  }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                      <CreditCard className="text-sampflix-purple" size={24} />
+                    </div>
+                    <h4 className="text-lg font-medium mb-2">Credit Card</h4>
+                    <p className="text-white/70 text-sm text-center">Visa, Mastercard, Amex</p>
+                    
+                    {selectedPaymentMethod === "credit-card" && (
+                      <PaymentCard className="mt-4 animate-fade-in" />
+                    )}
+                  </div>
+                </div>
+                
+                <div 
+                  onClick={() => setSelectedPaymentMethod("paypal")}
+                  className={`sampflix-card p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
+                    selectedPaymentMethod === "paypal" ? 'border-2 border-sampflix-bright-blue' : ''
+                  }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                      <svg className="text-sampflix-purple" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 7.2C19.2 8.2 20 10 20 12C20 14.5 18 16.5 15.5 16.5H12L11 20H7L10 9H15.5C16.2 9 16.9 8.9 17.5 7.2ZM12.5 4H7L4 17H8L9 13.5H11L12.5 4Z" stroke="currentColor" fill="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+                    <h4 className="text-lg font-medium mb-2">PayPal</h4>
+                    <p className="text-white/70 text-sm text-center">Safe online payments</p>
+
+                    {selectedPaymentMethod === "paypal" && (
+                      <div className="mt-4 animate-fade-in text-center">
+                        <div className="bg-[#0070BA] text-white py-2 px-4 rounded font-bold text-sm">
+                          PayPal
+                        </div>
+                        <p className="text-xs mt-2 text-white/70">Click confirm to connect with PayPal</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div 
+                  onClick={() => setSelectedPaymentMethod("wallet")}
+                  className={`sampflix-card p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
+                    selectedPaymentMethod === "wallet" ? 'border-2 border-sampflix-bright-blue' : ''
+                  }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                      <Wallet className="text-sampflix-purple" size={24} />
+                    </div>
+                    <h4 className="text-lg font-medium mb-2">Digital Wallet</h4>
+                    <p className="text-white/70 text-sm text-center">Apple Pay, Google Pay</p>
+                    
+                    {selectedPaymentMethod === "wallet" && (
+                      <div className="mt-4 animate-fade-in flex flex-col items-center gap-2">
+                        <div className="bg-black text-white py-1.5 px-4 rounded-md font-medium text-sm flex items-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.0457 11.5008C17.0519 9.95158 17.7451 8.72436 19.1372 7.84822C18.3568 6.71579 17.1654 6.0885 15.6037 5.98139C14.1286 5.87732 12.4892 6.82699 11.9459 6.82699C11.3741 6.82699 9.90278 6.02332 8.75747 6.02332C6.60673 6.05613 4.29553 7.77285 4.29553 11.2596C4.29553 12.1628 4.4516 13.0949 4.76375 14.0557C5.19431 15.3339 6.81193 18.6415 8.51542 18.5866C9.46509 18.5642 10.1372 17.9071 11.3741 17.9071C12.5742 17.9071 13.1942 18.5866 14.2553 18.5866C15.9773 18.5642 17.4211 15.58 17.8291 14.2987C14.9628 12.9972 14.684 9.6989 17.0457 8.32032V11.5008Z" />
+                          </svg>
+                          Apple Pay
+                        </div>
+                        <div className="bg-white text-black py-1.5 px-4 rounded-md font-medium text-sm flex items-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.5833 10H12.4167V14.1667H17.6667C17.0833 16.9167 14.9167 18.3333 12.4167 18.3333C9.25 18.3333 6.66667 15.75 6.66667 12.5833C6.66667 9.41667 9.25 6.83333 12.4167 6.83333C13.6667 6.83333 14.8333 7.25 15.75 8L19 4.75C17.3333 3.16667 15 2.16667 12.4167 2.16667C6.66667 2.16667 2 6.83333 2 12.5833C2 18.3333 6.66667 23 12.4167 23C17.5833 23 22 19.25 22 12.5833C22 11.75 21.8333 10.8333 21.5833 10Z" />
+                          </svg>
+                          Google Pay
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           
           {selectedPlan && (
             <div className="mt-12 text-center animate-slide-up">
