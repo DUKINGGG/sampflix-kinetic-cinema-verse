@@ -14,6 +14,7 @@ import Browse from "./pages/Browse";
 import MovieDetail from "./pages/MovieDetail";
 import SeriesDetail from "./pages/SeriesDetail";
 import Search from "./pages/Search";
+import Series from "./pages/Series";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/signup" element={<SignUp />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/browse" element={<Browse />} />
+            <Route path="/series" element={<Series />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/series/:id" element={<SeriesDetail />} />
             <Route path="/search" element={<Search />} />
