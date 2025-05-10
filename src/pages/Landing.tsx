@@ -1,8 +1,7 @@
-
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { ArrowRight, CheckCircle, Play } from 'lucide-react';
+import { ArrowRight, CheckCircle, Play, Sparkles, CreditCard } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { plans } from '@/data/plans';
 import { movies } from '@/data/movies';
@@ -137,27 +136,30 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Plans Section */}
+      {/* Plans Section with enhanced animations */}
       <section className="py-20 bg-gradient-to-b from-black to-sampflix-dark-purple">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            <span className="sampflix-gradient-text">Choose Your Plan</span>
+            <span className="sampflix-gradient-text animate-glow-pulse inline-block">Choose Your Plan</span>
           </h2>
           <p className="text-white/80 text-center mb-12 max-w-2xl mx-auto">
             Watch everything on SampFLIX with a plan that works for you. Upgrade, downgrade, or cancel anytime.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map((plan) => (
+            {plans.map((plan, index) => (
               <div 
                 key={plan.id}
-                className={`sampflix-card p-6 relative flex flex-col ${
-                  plan.isPopular ? 'transform md:-translate-y-4 border-sampflix-purple/50' : ''
+                className={`sampflix-card p-6 relative flex flex-col transition-all duration-500 ${
+                  plan.isPopular ? 'transform md:-translate-y-4 border-sampflix-purple/50 animate-card-pulse' : ''
                 }`}
+                style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {plan.isPopular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-sampflix-bright-blue text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-sampflix-purple to-sampflix-bright-blue text-white px-4 py-1 rounded-full text-sm font-medium animate-pulse-soft flex items-center gap-1">
+                    <Sparkles size={14} className="animate-glow" />
                     Most Popular
+                    <Sparkles size={14} className="animate-glow" />
                   </div>
                 )}
                 <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
@@ -165,8 +167,12 @@ const Landing = () => {
                   {plan.price}<span className="text-white/50 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 flex-grow">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
+                  {plan.features.map((feature, idx) => (
+                    <li 
+                      key={idx} 
+                      className="flex items-start animate-fade-in" 
+                      style={{ animationDelay: `${index * 0.1 + idx * 0.1}s` }}
+                    >
                       <CheckCircle className="text-sampflix-bright-blue shrink-0 mr-2" size={18} />
                       <span className="text-white/80">{feature}</span>
                     </li>
@@ -180,7 +186,12 @@ const Landing = () => {
                       : 'bg-white/10 text-white hover:bg-white/20'
                   }`}
                 >
-                  Choose Plan
+                  {plan.id === 'free-plan' ? 'Start Free' : (
+                    <span className="flex items-center justify-center gap-2">
+                      <CreditCard size={16} />
+                      Choose Plan
+                    </span>
+                  )}
                 </Link>
               </div>
             ))}
