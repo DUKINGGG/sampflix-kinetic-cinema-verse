@@ -4,14 +4,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '@/contexts/AppContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { movies } from '@/data/movies';
-import { series } from '@/data/series';
+import { movies, Movie } from '@/data/movies';
+import { series, Series } from '@/data/series';
 import { Play, Info } from 'lucide-react';
+
+type ContentItem = Movie | Series;
 
 const Browse = () => {
   const { auth } = useApp();
   const navigate = useNavigate();
-  const [heroContent, setHeroContent] = useState<any>(null);
+  const [heroContent, setHeroContent] = useState<ContentItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Redirect if not authenticated
@@ -73,6 +75,11 @@ const Browse = () => {
     });
   });
 
+  // Helper function to determine if content is a Movie or Series
+  const isMovie = (content: ContentItem): content is Movie => {
+    return 'duration' in content;
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -99,7 +106,13 @@ const Browse = () => {
               <span className="mx-2 text-white/50">•</span>
               <span>{heroContent?.year || "2023"}</span>
               <span className="mx-2 text-white/50">•</span>
-              <span>{heroContent?.duration || (heroContent?.seasons?.length + " Seasons") || "2h 15m"}</span>
+              <span>
+                {heroContent && isMovie(heroContent) 
+                  ? heroContent.duration 
+                  : heroContent && 'seasons' in heroContent 
+                    ? `${heroContent.seasons.length} Seasons` 
+                    : "2h 15m"}
+              </span>
             </div>
             <p className="text-white/90 text-lg mb-8">
               {heroContent?.description || "No description available"}
@@ -183,7 +196,7 @@ const Browse = () => {
                           <div className="flex items-center text-xs mt-1">
                             <span>{content.year}</span>
                             <span className="mx-1">•</span>
-                            <span>{content.id.startsWith('movie') ? content.duration : content.seasons.length + " Seasons"}</span>
+                            <span>{isMovie(content) ? content.duration : `${(content as Series).seasons.length} Seasons`}</span>
                           </div>
                         </div>
                       </div>

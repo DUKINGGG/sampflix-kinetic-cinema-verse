@@ -104,6 +104,6 @@
   }
 
   .content-row {
-    @apply flex space-x-4 pb-4 overflow-x-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-sampflix-purple/50 hover:scrollbar-thumb-sampflix-purple;
+    @apply flex space-x-4 pb-4 overflow-x-auto;
   }
 }
