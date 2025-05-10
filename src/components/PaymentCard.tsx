@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CreditCard, Calendar, Chip } from 'lucide-react';
+import { CreditCard, Calendar } from 'lucide-react';
 
 interface PaymentCardProps {
   cardType: string;
@@ -55,7 +55,7 @@ const PaymentCard: React.FC<PaymentCardProps> = ({
       <div className="relative z-10 h-full flex flex-col justify-between">
         {/* Card chip and type */}
         <div className="flex justify-between items-start">
-          <Chip className="text-yellow-300/90" size={32} />
+          <div className="w-10 h-8 bg-yellow-300/90 rounded-md"></div>
           <div className="flex items-center space-x-2">
             {getCardLogo()}
           </div>
