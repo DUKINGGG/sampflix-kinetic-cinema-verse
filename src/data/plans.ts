@@ -30,6 +30,8 @@ export const plans: Plan[] = [
       "Full content library",
       "Ad-free streaming",
       "Download on one device",
+      "Multiple payment methods",
+      "Priority support"
     ],
     isPopular: true
   },
@@ -43,6 +45,9 @@ export const plans: Plan[] = [
       "Full content library + exclusive content",
       "Ad-free streaming",
       "Download on four devices",
+      "All payment methods",
+      "Premium customer support",
+      "Early access to new releases"
     ]
   }
 ];

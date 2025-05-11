@@ -19,6 +19,25 @@ const Plans = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [showPaymentMethod, setShowPaymentMethod] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("credit-card");
+  
+  // Sample payment methods data for animation and display
+  const paymentCards = {
+    visa: {
+      cardType: "visa",
+      lastFour: "4242",
+      expiryDate: "12/25"
+    },
+    mastercard: {
+      cardType: "mastercard",
+      lastFour: "5555",
+      expiryDate: "10/26"
+    },
+    amex: {
+      cardType: "amex",
+      lastFour: "9999",
+      expiryDate: "08/24"
+    }
+  };
 
   useEffect(() => {
     // If user is not authenticated, redirect to signup
@@ -179,14 +198,32 @@ const Plans = () => {
                   }`}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4 animate-pulse-soft">
                       <CreditCard className="text-sampflix-purple" size={24} />
                     </div>
                     <h4 className="text-lg font-medium mb-2">Credit Card</h4>
                     <p className="text-white/70 text-sm text-center">Visa, Mastercard, Amex</p>
                     
                     {selectedPaymentMethod === "credit-card" && (
-                      <PaymentCard className="mt-4 animate-fade-in" />
+                      <div className="w-full mt-4 space-y-4">
+                        {/* Rotating card display for animation */}
+                        <div className="relative h-56 perspective-1000 group">
+                          <div className="absolute w-full h-full transition-all duration-1000 transform-style-3d animate-card-rotate">
+                            <PaymentCard 
+                              cardType={paymentCards.visa.cardType}
+                              lastFour={paymentCards.visa.lastFour}
+                              expiryDate={paymentCards.visa.expiryDate}
+                              className="animate-fade-in"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-center space-x-2 mt-2">
+                          <div className="w-3 h-3 rounded-full bg-sampflix-bright-blue animate-pulse-soft"></div>
+                          <div className="w-3 h-3 rounded-full bg-white/50"></div>
+                          <div className="w-3 h-3 rounded-full bg-white/50"></div>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -198,7 +235,7 @@ const Plans = () => {
                   }`}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4 animate-pulse-soft">
                       <svg className="text-sampflix-purple" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.5 7.2C19.2 8.2 20 10 20 12C20 14.5 18 16.5 15.5 16.5H12L11 20H7L10 9H15.5C16.2 9 16.9 8.9 17.5 7.2ZM12.5 4H7L4 17H8L9 13.5H11L12.5 4Z" stroke="currentColor" fill="currentColor" strokeWidth="1.5" />
                       </svg>
@@ -207,11 +244,35 @@ const Plans = () => {
                     <p className="text-white/70 text-sm text-center">Safe online payments</p>
 
                     {selectedPaymentMethod === "paypal" && (
-                      <div className="mt-4 animate-fade-in text-center">
-                        <div className="bg-[#0070BA] text-white py-2 px-4 rounded font-bold text-sm">
-                          PayPal
+                      <div className="mt-4 animate-fade-in text-center w-full">
+                        <div className="bg-[#0070BA] text-white py-4 px-6 rounded font-bold text-lg mb-4 animate-pulse-soft transform transition-transform hover:scale-105">
+                          <div className="flex items-center justify-center">
+                            <span className="text-[#fff] font-bold mr-1">Pay</span>
+                            <span className="text-[#fff] font-bold italic">Pal</span>
+                          </div>
                         </div>
-                        <p className="text-xs mt-2 text-white/70">Click confirm to connect with PayPal</p>
+                        <p className="text-sm mt-2 text-white/70">Fast and secure payment with PayPal</p>
+                        
+                        <div className="flex justify-center items-center space-x-3 mt-6">
+                          <div className="w-10 h-6 bg-white rounded flex items-center justify-center">
+                            <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                              <path d="M1.893 11.943H3.613L4.893 1.943H3.173L1.893 11.943ZM14.693 1.983C14.133 1.743 13.333 1.483 12.293 1.483C10.293 1.483 8.893 2.563 8.873 4.103C8.853 5.243 9.853 5.883 10.633 6.263C11.433 6.643 11.693 6.883 11.693 7.203C11.693 7.703 11.073 7.943 10.493 7.943C9.673 7.943 9.233 7.803 8.493 7.443L8.173 7.283L7.833 8.963C8.493 9.263 9.553 9.523 10.653 9.523C12.773 9.523 14.133 8.463 14.153 6.803C14.173 5.923 13.633 5.243 12.453 4.683C11.733 4.323 11.293 4.083 11.293 3.723C11.293 3.383 11.673 3.043 12.493 3.043C13.193 3.023 13.713 3.203 14.133 3.383L14.353 3.483L14.693 1.983ZM18.173 1.943H16.913C16.433 1.943 16.073 2.083 15.873 2.563L12.953 11.943H15.053C15.053 11.943 15.413 11.023 15.493 10.823C15.753 10.823 18.013 10.823 18.333 10.823C18.393 11.083 18.593 11.943 18.593 11.943H20.533L18.173 1.943ZM16.053 9.163C16.233 8.683 16.953 6.683 16.953 6.683C16.933 6.723 17.133 6.243 17.253 5.943L17.413 6.603C17.413 6.603 17.853 8.763 17.933 9.163H16.053Z" fill="#172B85"/>
+                            </svg>
+                          </div>
+                          <div className="w-10 h-6 bg-[#FF5F00] rounded flex items-center justify-center">
+                            <div className="relative">
+                              <div className="w-4 h-4 bg-[#EB001B] rounded-full absolute left-0"></div>
+                              <div className="w-4 h-4 bg-[#F79E1B] rounded-full absolute right-0 ml-2"></div>
+                              <div className="w-2 h-4 absolute left-2 bg-[#FF5F00]"></div>
+                            </div>
+                          </div>
+                          <div className="w-10 h-6 bg-white rounded flex items-center justify-center">
+                            <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
+                              <path d="M4.982 0.5H0.5V9.5H4.982V0.5Z" fill="#016FD0"/>
+                              <path d="M1.25 5C1.25 3.063 2.173 1.34 3.59 0.25C2.321 0.865 1.278 1.842 0.592 3.044C-0.094 4.247 -0.194 5.604 0.308 6.872C0.809 8.14 1.783 9.218 3.05 9.881C4.317 10.544 5.788 10.748 7.188 10.458V7.663C7.188 6.275 6.37 5.15 5.213 5C5.213 5 4.982 5 4.982 5.228V0.5C3.26 0.5 1.819 1.56 1.25 3.063V5Z" fill="#016FD0"/>
+                            </svg>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -224,26 +285,33 @@ const Plans = () => {
                   }`}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-sampflix-purple/20 mb-4 animate-pulse-soft">
                       <Wallet className="text-sampflix-purple" size={24} />
                     </div>
                     <h4 className="text-lg font-medium mb-2">Digital Wallet</h4>
                     <p className="text-white/70 text-sm text-center">Apple Pay, Google Pay</p>
                     
                     {selectedPaymentMethod === "wallet" && (
-                      <div className="mt-4 animate-fade-in flex flex-col items-center gap-2">
-                        <div className="bg-black text-white py-1.5 px-4 rounded-md font-medium text-sm flex items-center">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <div className="mt-4 animate-fade-in flex flex-col items-center gap-4 w-full">
+                        <div className="bg-black text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center w-full transition-transform hover:scale-105 animate-pulse-soft">
+                          <svg className="mr-2" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.0457 11.5008C17.0519 9.95158 17.7451 8.72436 19.1372 7.84822C18.3568 6.71579 17.1654 6.0885 15.6037 5.98139C14.1286 5.87732 12.4892 6.82699 11.9459 6.82699C11.3741 6.82699 9.90278 6.02332 8.75747 6.02332C6.60673 6.05613 4.29553 7.77285 4.29553 11.2596C4.29553 12.1628 4.4516 13.0949 4.76375 14.0557C5.19431 15.3339 6.81193 18.6415 8.51542 18.5866C9.46509 18.5642 10.1372 17.9071 11.3741 17.9071C12.5742 17.9071 13.1942 18.5866 14.2553 18.5866C15.9773 18.5642 17.4211 15.58 17.8291 14.2987C14.9628 12.9972 14.684 9.6989 17.0457 8.32032V11.5008Z" />
                           </svg>
                           Apple Pay
                         </div>
-                        <div className="bg-white text-black py-1.5 px-4 rounded-md font-medium text-sm flex items-center">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <div className="bg-white text-black py-3 px-6 rounded-lg font-medium flex items-center justify-center w-full transition-transform hover:scale-105 animate-pulse-soft" style={{ animationDelay: "0.2s" }}>
+                          <svg className="mr-2" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M21.5833 10H12.4167V14.1667H17.6667C17.0833 16.9167 14.9167 18.3333 12.4167 18.3333C9.25 18.3333 6.66667 15.75 6.66667 12.5833C6.66667 9.41667 9.25 6.83333 12.4167 6.83333C13.6667 6.83333 14.8333 7.25 15.75 8L19 4.75C17.3333 3.16667 15 2.16667 12.4167 2.16667C6.66667 2.16667 2 6.83333 2 12.5833C2 18.3333 6.66667 23 12.4167 23C17.5833 23 22 19.25 22 12.5833C22 11.75 21.8333 10.8333 21.5833 10Z" />
                           </svg>
                           Google Pay
                         </div>
+                        
+                        <div className="flex justify-center space-x-3 mt-2 animate-bounce" style={{ animationDuration: "2s" }}>
+                          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-sampflix-bright-blue">
+                            <path d="M12 17V3M12 17L5 10M12 17L19 10" />
+                          </svg>
+                        </div>
+                        <p className="text-xs text-center text-sampflix-bright-blue animate-pulse-soft">Tap to use</p>
                       </div>
                     )}
                   </div>
@@ -375,3 +443,4 @@ const Plans = () => {
 };
 
 export default Plans;
+
