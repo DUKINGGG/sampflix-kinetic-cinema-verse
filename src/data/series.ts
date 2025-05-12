@@ -120,9 +120,9 @@ export const series: Series[] = [
   },
   {
     id: "series-4",
-    title: "Survival Game",
+    title: "Squid Game Challenge",
     description: "456 desperate contestants compete in a mysterious and deadly survival game involving multiple children's games to win a ₩45.6 billion prize.",
-    thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+    thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
     seasons: [
       {
         id: "survival-game-s1",
@@ -132,7 +132,7 @@ export const series: Series[] = [
             id: "sg-s1-e1",
             title: "Red Light, Green Light",
             description: "Seong Gi-hun, a divorced father and debtor, is invited to play a series of children's games for a chance at a large cash prize.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e1.mp4",
             duration: "60m",
             episodeNumber: 1
@@ -141,7 +141,7 @@ export const series: Series[] = [
             id: "sg-s1-e2",
             title: "The Shapes Game",
             description: "The players must complete a dangerous challenge involving cutting shapes from a fragile material within a time limit.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e2.mp4",
             duration: "55m",
             episodeNumber: 2
@@ -150,7 +150,7 @@ export const series: Series[] = [
             id: "sg-s1-e3",
             title: "Team Formation",
             description: "Tensions rise as players must choose teammates for the next challenge, knowing that they may need to face off against each other.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e3.mp4",
             duration: "58m",
             episodeNumber: 3
@@ -159,7 +159,7 @@ export const series: Series[] = [
             id: "sg-s1-e4",
             title: "Midnight Riot",
             description: "As resources become scarce, players turn against each other during a tense night of conflict and alliances.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e4.mp4",
             duration: "62m",
             episodeNumber: 4
@@ -168,7 +168,7 @@ export const series: Series[] = [
             id: "sg-s1-e5",
             title: "The Glass Bridge",
             description: "Players must cross a treacherous glass bridge where one wrong step means certain death.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e5.mp4",
             duration: "59m",
             episodeNumber: 5
@@ -177,7 +177,7 @@ export const series: Series[] = [
             id: "sg-s1-e6",
             title: "The Final Game",
             description: "The remaining contestants face off in one final game that will determine who takes home the enormous cash prize.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s1e6.mp4",
             duration: "65m",
             episodeNumber: 6
@@ -192,7 +192,7 @@ export const series: Series[] = [
             id: "sg-s2-e1",
             title: "Return to the Game",
             description: "A new group of players enters the deadly competition, along with a few surprising returning contestants.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s2e1.mp4",
             duration: "64m",
             episodeNumber: 1
@@ -201,7 +201,7 @@ export const series: Series[] = [
             id: "sg-s2-e2",
             title: "New Rules",
             description: "The players discover that the games have changed, with new twists making them even more dangerous than before.",
-            thumbnailUrl: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3",
+            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
             videoUrl: "/videos/survival-game-s2e2.mp4",
             duration: "58m",
             episodeNumber: 2

@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { User, LogOut, Settings, CreditCard } from "lucide-react";
+import { User, LogOut, Settings, CreditCard, Film, Tv } from "lucide-react";
 import { useApp } from '@/contexts/AppContext';
 
 const UserMenu = () => {
@@ -18,6 +18,18 @@ const UserMenu = () => {
             <div className="flex items-center space-x-2">
               <User size={16} />
               <span>Profile</span>
+            </div>
+          </Link>
+          <Link to="/movies" className="block px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20">
+            <div className="flex items-center space-x-2">
+              <Film size={16} />
+              <span>Movies</span>
+            </div>
+          </Link>
+          <Link to="/series" className="block px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20">
+            <div className="flex items-center space-x-2">
+              <Tv size={16} />
+              <span>TV Series</span>
             </div>
           </Link>
           <Link to="/settings" className="block px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20">

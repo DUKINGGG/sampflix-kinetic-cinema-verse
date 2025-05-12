@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Plans from "./pages/Plans";
 import Browse from "./pages/Browse";
+import Movies from "./pages/Movies";
 import MovieDetail from "./pages/MovieDetail";
 import SeriesDetail from "./pages/SeriesDetail";
 import Search from "./pages/Search";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/signup" element={<SignUp />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/browse" element={<Browse />} />
+            <Route path="/movies" element={<Movies />} />
             <Route path="/series" element={<Series />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/series/:id" element={<SeriesDetail />} />
