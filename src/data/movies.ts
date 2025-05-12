@@ -71,5 +71,85 @@ export const movies: Movie[] = [
     year: 2023,
     genre: ["Action", "Thriller"],
     rating: "PG-13"
+  },
+  {
+    id: "movie-6",
+    title: "Neon Nights",
+    description: "A detective hunts a serial killer in a cyberpunk metropolis where reality and virtual worlds blur.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3",
+    videoUrl: "/videos/neon-nights.mp4",
+    duration: "2h 08m",
+    year: 2023,
+    genre: ["Cyberpunk", "Crime", "Mystery"],
+    rating: "R",
+    isNew: true
+  },
+  {
+    id: "movie-7",
+    title: "Wilderness",
+    description: "A family camping trip turns into a fight for survival when they encounter something supernatural in the forest.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3",
+    videoUrl: "/videos/wilderness.mp4",
+    duration: "1h 52m",
+    year: 2022,
+    genre: ["Horror", "Thriller"],
+    rating: "R"
+  },
+  {
+    id: "movie-8",
+    title: "Ocean's Depth",
+    description: "A marine biologist discovers an unknown species in the deepest part of the ocean that could change human evolution.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1551244072-5d12893278ab?ixlib=rb-4.0.3",
+    videoUrl: "/videos/oceans-depth.mp4",
+    duration: "2h 22m",
+    year: 2024,
+    genre: ["Adventure", "Sci-Fi", "Mystery"],
+    rating: "PG-13",
+    isFeatured: true
+  },
+  {
+    id: "movie-9",
+    title: "The Grand Heist",
+    description: "A team of skilled thieves plan to rob the most secure bank in the world during an international art exhibition.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1618172193763-c511deb635ca?ixlib=rb-4.0.3",
+    videoUrl: "/videos/grand-heist.mp4",
+    duration: "2h 15m",
+    year: 2023,
+    genre: ["Action", "Crime", "Thriller"],
+    rating: "PG-13"
+  },
+  {
+    id: "movie-10",
+    title: "Forever Young",
+    description: "A scientist discovers the secret to eternal youth, but the price may be higher than humanity can afford.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-4.0.3",
+    videoUrl: "/videos/forever-young.mp4",
+    duration: "1h 58m",
+    year: 2024,
+    genre: ["Drama", "Sci-Fi"],
+    rating: "PG-13",
+    isNew: true
+  },
+  {
+    id: "movie-11",
+    title: "Desert Storm",
+    description: "A journalist trapped in a war-torn country must navigate dangerous territory to bring the truth to the world.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-4.0.3",
+    videoUrl: "/videos/desert-storm.mp4",
+    duration: "2h 04m",
+    year: 2022,
+    genre: ["War", "Drama", "Action"],
+    rating: "R"
+  },
+  {
+    id: "movie-12",
+    title: "Whispers in the Dark",
+    description: "A child psychologist works with a boy who claims to hear whispers from another dimension.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?ixlib=rb-4.0.3",
+    videoUrl: "/videos/whispers.mp4",
+    duration: "1h 49m",
+    year: 2023,
+    genre: ["Horror", "Psychological", "Mystery"],
+    rating: "PG-13"
   }
 ];
