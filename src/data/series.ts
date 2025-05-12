@@ -13,6 +13,7 @@ export interface Season {
   id: string;
   title: string;
   episodes: Episode[];
+  thumbnailUrl?: string;
 }
 
 export interface Series {
@@ -120,13 +121,14 @@ export const series: Series[] = [
   },
   {
     id: "series-4",
-    title: "Squid Game Challenge",
+    title: "Squid Game",
     description: "456 desperate contestants compete in a mysterious and deadly survival game involving multiple children's games to win a ₩45.6 billion prize.",
     thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
     seasons: [
       {
-        id: "survival-game-s1",
+        id: "squid-game-s1",
         title: "Season 1",
+        thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
         episodes: [
           {
             id: "sg-s1-e1",
@@ -185,14 +187,15 @@ export const series: Series[] = [
         ]
       },
       {
-        id: "survival-game-s2",
+        id: "squid-game-s2",
         title: "Season 2",
+        thumbnailUrl: "/lovable-uploads/4b32cac2-0c03-423f-967f-146a2b5668c4.png",
         episodes: [
           {
             id: "sg-s2-e1",
             title: "Return to the Game",
             description: "A new group of players enters the deadly competition, along with a few surprising returning contestants.",
-            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
+            thumbnailUrl: "/lovable-uploads/4b32cac2-0c03-423f-967f-146a2b5668c4.png",
             videoUrl: "/videos/survival-game-s2e1.mp4",
             duration: "64m",
             episodeNumber: 1
@@ -201,10 +204,19 @@ export const series: Series[] = [
             id: "sg-s2-e2",
             title: "New Rules",
             description: "The players discover that the games have changed, with new twists making them even more dangerous than before.",
-            thumbnailUrl: "/lovable-uploads/1d8f0ebc-94f2-4789-9039-ea74014d4f3b.png",
+            thumbnailUrl: "/lovable-uploads/4b32cac2-0c03-423f-967f-146a2b5668c4.png",
             videoUrl: "/videos/survival-game-s2e2.mp4",
             duration: "58m",
             episodeNumber: 2
+          },
+          {
+            id: "sg-s2-e3",
+            title: "Let The New Games Begin",
+            description: "Contestants face their first major challenge in the new season with higher stakes than ever before.",
+            thumbnailUrl: "/lovable-uploads/4b32cac2-0c03-423f-967f-146a2b5668c4.png",
+            videoUrl: "/videos/survival-game-s2e3.mp4",
+            duration: "61m",
+            episodeNumber: 3
           }
         ]
       }
