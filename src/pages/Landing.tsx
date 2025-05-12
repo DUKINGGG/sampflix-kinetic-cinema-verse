@@ -34,16 +34,11 @@ const Landing = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/50 z-10" />
           <div className="absolute inset-0 bg-sampflix-dark-purple/30 z-10" />
           <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(155,135,245,0.1)_0%,rgba(30,174,219,0)_70%)] z-10" />
-          <video 
-            autoPlay 
-            loop 
-            muted 
+          <img 
+            src="/lovable-uploads/1dc762d8-d579-4261-b533-f5605993227c.png" 
+            alt="Mountain landscape" 
             className="absolute w-full h-full object-cover object-center"
-            poster={featuredMovie?.thumbnailUrl || "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3"}
-          >
-            <source src="/videos/trailer.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
         
         {/* Hero Content */}
