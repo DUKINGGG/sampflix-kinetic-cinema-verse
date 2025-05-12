@@ -1,14 +1,16 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { User, LogOut, Search, Menu, X } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import { useApp } from '@/contexts/AppContext';
 import SampflixLogo from './SampflixLogo';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
 import { cn } from '@/lib/utils';
+import UserMenu from './UserMenu';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
-  const { auth, logout } = useApp();
+  const { auth } = useApp();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -141,33 +143,7 @@ const Header = () => {
               </>
             )}
             
-            {showUserMenu && (
-              <div className="relative group">
-                <button className="flex items-center space-x-2 text-white">
-                  <User size={20} />
-                  <span className="hidden md:inline">{auth.user?.name}</span>
-                </button>
-                <div className="absolute right-0 mt-2 w-48 bg-sampflix-dark-purple border border-sampflix-purple/20 rounded-md shadow-lg overflow-hidden z-50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transform transition-all duration-200 origin-top-right">
-                  <div className="py-1">
-                    <Link to="/profile" className="block px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20">
-                      Profile
-                    </Link>
-                    <Link to="/settings" className="block px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20">
-                      Settings
-                    </Link>
-                    <button 
-                      onClick={logout} 
-                      className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-sampflix-purple/20"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <LogOut size={16} />
-                        <span>Sign out</span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            {showUserMenu && <UserMenu />}
           </div>
         </div>
 
@@ -181,92 +157,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-sampflix-dark-purple border-t border-sampflix-purple/20 animate-slide-down">
-          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {auth.isAuthenticated && (
-              <>
-                <Link 
-                  to="/browse" 
-                  className="text-white py-2 border-b border-sampflix-purple/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Home
-                </Link>
-                <Link 
-                  to="/movies" 
-                  className="text-white py-2 border-b border-sampflix-purple/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Movies
-                </Link>
-                <Link 
-                  to="/series" 
-                  className="text-white py-2 border-b border-sampflix-purple/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  TV Shows
-                </Link>
-                <Link 
-                  to="/search" 
-                  className="text-white py-2 border-b border-sampflix-purple/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Search
-                </Link>
-              </>
-            )}
-            
-            {showAuthButtons && (
-              <div className="flex flex-col space-y-3 pt-2">
-                <Link 
-                  to="/login" 
-                  className="text-white text-center py-2 border border-white/20 rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link 
-                  to="/signup" 
-                  className="sampflix-button text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
-              </div>
-            )}
-            
-            {showUserMenu && (
-              <div className="pt-2 border-t border-sampflix-purple/10">
-                <Link 
-                  to="/profile" 
-                  className="text-white py-2 border-b border-sampflix-purple/10 block"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Profile
-                </Link>
-                <Link 
-                  to="/settings" 
-                  className="text-white py-2 border-b border-sampflix-purple/10 block"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Settings
-                </Link>
-                <button 
-                  onClick={() => {
-                    logout();
-                    setIsMenuOpen(false);
-                  }} 
-                  className="flex items-center space-x-2 text-white py-2 w-full text-left"
-                >
-                  <LogOut size={16} />
-                  <span>Sign out</span>
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </header>
   );
 };
