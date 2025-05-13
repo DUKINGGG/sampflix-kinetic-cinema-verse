@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -35,8 +36,8 @@ const Landing = () => {
           <div className="absolute inset-0 bg-sampflix-dark-purple/30 z-10" />
           <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(155,135,245,0.1)_0%,rgba(30,174,219,0)_70%)] z-10" />
           <img 
-            src="/lovable-uploads/18ef97dc-a330-4ab8-a010-10c4aa05231f.png" 
-            alt="Movie thumbnails collection" 
+            src="/lovable-uploads/07111366-312e-46c1-9152-5750f05e4bcd.png" 
+            alt="Fantasy world landscape" 
             className="absolute w-full h-full object-cover object-center"
           />
         </div>
