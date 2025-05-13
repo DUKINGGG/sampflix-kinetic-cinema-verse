@@ -35,8 +35,8 @@ const Landing = () => {
           <div className="absolute inset-0 bg-sampflix-dark-purple/30 z-10" />
           <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(155,135,245,0.1)_0%,rgba(30,174,219,0)_70%)] z-10" />
           <img 
-            src="/lovable-uploads/1dc762d8-d579-4261-b533-f5605993227c.png" 
-            alt="Mountain landscape" 
+            src="/lovable-uploads/18ef97dc-a330-4ab8-a010-10c4aa05231f.png" 
+            alt="Movie thumbnails collection" 
             className="absolute w-full h-full object-cover object-center"
           />
         </div>
