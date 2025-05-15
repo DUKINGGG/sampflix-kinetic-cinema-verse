@@ -79,11 +79,21 @@ const MovieDetail = () => {
             </button>
             <div className="absolute inset-0 bg-black flex items-center justify-center">
               <div className="text-center">
-                <p className="text-xl mb-4">Video playback would appear here</p>
-                <p className="text-white/60">Actual video content not available in this demo</p>
+                <div className="mb-6">
+                  <img 
+                    src={movie.thumbnailUrl} 
+                    alt={movie.title}
+                    className="max-w-md mx-auto rounded-lg shadow-2xl"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{movie.title}</h3>
+                <p className="text-xl text-sampflix-bright-orange mb-4">Now Playing</p>
+                <div className="bg-black/50 p-4 rounded-lg mb-6 max-w-md mx-auto">
+                  <p className="text-lg">This is a demo version. Video playback is not available.</p>
+                </div>
                 <button
                   onClick={() => setIsPlaying(false)}
-                  className="mt-6 sampflix-button"
+                  className="sampflix-button px-8 py-3 text-lg"
                 >
                   Exit Player
                 </button>
@@ -92,32 +102,37 @@ const MovieDetail = () => {
           </div>
         ) : (
           <>
-            {/* Hero Banner */}
-            <section className="relative h-[70vh] flex items-center">
+            {/* Hero Banner - Updated to be more similar to landing page */}
+            <section className="relative h-[85vh] flex items-center">
               {/* Background */}
               <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
                 <div className="absolute bottom-0 h-1/3 w-full bg-gradient-to-t from-sampflix-dark-purple to-transparent z-10" />
-                <img 
-                  src={movie.thumbnailUrl} 
-                  alt={movie.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                {/* Improved image display with additional effects */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute inset-0 bg-sampflix-dark-purple/30 z-5" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(155,135,245,0.1)_0%,rgba(30,174,219,0)_70%)] z-5" />
+                  <img 
+                    src={movie.thumbnailUrl} 
+                    alt={movie.title}
+                    className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
+                  />
+                </div>
               </div>
               
               {/* Content */}
               <div className="container mx-auto px-4 relative z-20">
                 <div className="max-w-2xl">
-                  <h1 className="text-4xl md:text-6xl font-bold mb-4">{movie.title}</h1>
-                  <div className="flex items-center mb-4 text-sm">
+                  <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">{movie.title}</h1>
+                  <div className="flex items-center mb-4 text-sm animate-fade-in" style={{animationDelay: "0.2s"}}>
                     <span className="text-sampflix-bright-orange font-medium">{movie.rating}</span>
                     <span className="mx-2 text-white/50">•</span>
                     <span>{movie.year}</span>
                     <span className="mx-2 text-white/50">•</span>
                     <span>{movie.duration}</span>
                   </div>
-                  <p className="text-white/90 text-lg mb-8">{movie.description}</p>
-                  <div className="flex space-x-4">
+                  <p className="text-white/90 text-lg mb-8 animate-fade-in" style={{animationDelay: "0.3s"}}>{movie.description}</p>
+                  <div className="flex space-x-4 animate-fade-in" style={{animationDelay: "0.4s"}}>
                     <button 
                       onClick={handlePlayClick}
                       className="sampflix-button group flex items-center"

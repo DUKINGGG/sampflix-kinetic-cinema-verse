@@ -5,6 +5,8 @@ export interface Plan {
   price: string;
   features: string[];
   isPopular?: boolean;
+  requiresPayment?: boolean;
+  paymentMethods?: string[];
 }
 
 export const plans: Plan[] = [
@@ -18,7 +20,8 @@ export const plans: Plan[] = [
       "Limited content library",
       "Ad-supported streaming",
       "No downloads",
-    ]
+    ],
+    requiresPayment: false
   },
   {
     id: "premium-plan",
@@ -33,7 +36,9 @@ export const plans: Plan[] = [
       "Multiple payment methods",
       "Priority support"
     ],
-    isPopular: true
+    isPopular: true,
+    requiresPayment: true,
+    paymentMethods: ["credit-card", "paypal", "digital-wallet"]
   },
   {
     id: "master-plan",
@@ -48,6 +53,8 @@ export const plans: Plan[] = [
       "All payment methods",
       "Premium customer support",
       "Early access to new releases"
-    ]
+    ],
+    requiresPayment: true,
+    paymentMethods: ["credit-card", "paypal", "digital-wallet"]
   }
 ];
