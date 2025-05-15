@@ -54,8 +54,8 @@
   }
   
   body {
-    @apply bg-sampflix-dark-purple text-foreground antialiased min-h-screen;
-    background: linear-gradient(to bottom, #1A1F2C, #121520);
+    @apply bg-black text-foreground antialiased min-h-screen;
+    background: linear-gradient(to bottom, #0b0b0b, #020202);
   }
 
   /* Custom scrollbar */
@@ -69,18 +69,18 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(155, 135, 245, 0.5);
+    background: rgba(229, 9, 20, 0.5);
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(155, 135, 245, 0.8);
+    background: rgba(229, 9, 20, 0.8);
   }
 }
 
 @layer components {
   .sampflix-gradient-text {
-    @apply bg-gradient-to-r from-sampflix-purple to-sampflix-bright-blue bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-netflix-red to-netflix-red-light bg-clip-text text-transparent;
   }
 
   .sampflix-card {
@@ -88,15 +88,15 @@
   }
 
   .sampflix-button {
-    @apply px-6 py-3 font-medium text-white rounded-md transition-all duration-300 bg-gradient-to-r from-sampflix-purple to-sampflix-bright-blue hover:from-sampflix-bright-blue hover:to-sampflix-magenta-pink hover:shadow-lg hover:shadow-sampflix-purple/20;
+    @apply px-6 py-3 font-medium text-white rounded-md transition-all duration-300 bg-netflix-red hover:bg-netflix-red-light hover:shadow-lg;
   }
 
   .content-card {
-    @apply relative overflow-hidden rounded-lg transition-transform duration-300 cursor-pointer;
+    @apply relative overflow-hidden rounded-md transition-transform duration-300 cursor-pointer;
   }
 
   .content-card:hover {
-    @apply transform scale-105 z-10 shadow-lg shadow-sampflix-purple/30;
+    @apply transform scale-105 z-10 shadow-lg shadow-netflix-red/30;
   }
 
   .content-category {
@@ -105,6 +105,11 @@
 
   .content-row {
     @apply flex space-x-4 pb-4 overflow-x-auto;
+  }
+  
+  .netflix-title {
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -125,9 +130,9 @@
 }
 
 @keyframes glow-pulse {
-  0% { box-shadow: 0 0 5px rgba(155, 135, 245, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(155, 135, 245, 0.8), 0 0 30px rgba(30, 174, 219, 0.5); }
-  100% { box-shadow: 0 0 5px rgba(155, 135, 245, 0.5); }
+  0% { box-shadow: 0 0 5px rgba(229, 9, 20, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.8), 0 0 30px rgba(229, 9, 20, 0.5); }
+  100% { box-shadow: 0 0 5px rgba(229, 9, 20, 0.5); }
 }
 
 .animate-float {
@@ -159,3 +164,46 @@
   transform: scale(0);
   animation: ripple 1s;
 }
+
+/* Netflix specific styles */
+.netflix-hero {
+  @apply relative min-h-[85vh] w-full overflow-hidden;
+}
+
+.netflix-hero-content {
+  @apply relative z-10 container mx-auto px-4 pt-32 pb-20;
+}
+
+.netflix-gradient-overlay {
+  @apply absolute inset-0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.4) 50%,
+    rgba(0,0,0,0.9) 90%,
+    #000000 100%
+  ), 
+  linear-gradient(
+    to right,
+    rgba(0,0,0,0.8) 0%,
+    rgba(0,0,0,0) 60%
+  );
+}
+
+.netflix-section {
+  @apply py-8 px-4;
+}
+
+.netflix-row-title {
+  @apply text-xl md:text-2xl font-bold mb-4 text-white;
+}
+
+.netflix-thumbnail-container {
+  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4;
+}
+
+/* Animated row transitions */
+.netflix-row {
+  @apply mb-8;
+}
+
