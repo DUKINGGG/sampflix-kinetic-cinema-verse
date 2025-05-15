@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { movies, Movie } from '@/data/movies';
 import { series, Series } from '@/data/series';
+import AnimatedThumbnail from '@/components/AnimatedThumbnail';
 import { Play, Info } from 'lucide-react';
 
 type ContentItem = Movie | Series;
@@ -135,22 +136,16 @@ const Browse = () => {
                   className="content-card group animate-fade-in"
                   style={{ animationDelay: '0.1s' }}
                 >
-                  <div className="relative pb-[150%]">
-                    <img 
-                      src={show.thumbnailUrl} 
-                      alt={show.title}
-                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                    />
-                    {show.isNew && (
-                      <div className="absolute top-2 right-2 bg-sampflix-bright-orange text-white text-xs font-medium px-2 py-1 rounded">
-                        NEW
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 to-transparent">
-                      <h3 className="text-white font-medium line-clamp-1">{show.title}</h3>
-                      <div className="flex items-center text-xs mt-1">
-                        <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
-                      </div>
+                  <AnimatedThumbnail
+                    src={show.thumbnailUrl}
+                    alt={show.title}
+                    isNew={show.isNew}
+                    isFeatured={show.isFeatured}
+                  />
+                  <div className="mt-2">
+                    <h3 className="text-white font-medium line-clamp-1">{show.title}</h3>
+                    <div className="flex items-center text-xs text-white/70">
+                      <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
                     </div>
                   </div>
                 </Link>
@@ -189,24 +184,18 @@ const Browse = () => {
                     to={content.id.startsWith('movie') ? `/movie/${content.id}` : `/series/${content.id}`}
                     className="content-card min-w-[200px] w-[200px]"
                   >
-                    <div className="relative pb-[150%]">
-                      <img 
-                        src={content.thumbnailUrl} 
-                        alt={content.title}
-                        className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                      />
-                      <div className="absolute top-2 right-2 bg-sampflix-bright-orange text-white text-xs font-medium px-2 py-1 rounded">
-                        NEW
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <div>
-                          <h3 className="text-white font-medium">{content.title}</h3>
-                          <div className="flex items-center text-xs mt-1">
-                            <span>{content.year}</span>
-                            <span className="mx-1">•</span>
-                            <span>{isMovie(content) ? content.duration : `${(content as Series).seasons.length} Seasons`}</span>
-                          </div>
-                        </div>
+                    <AnimatedThumbnail
+                      src={content.thumbnailUrl}
+                      alt={content.title}
+                      isNew={true}
+                      isFeatured={content.isFeatured}
+                    />
+                    <div className="mt-2">
+                      <h3 className="text-white font-medium line-clamp-1">{content.title}</h3>
+                      <div className="flex items-center text-xs text-white/70">
+                        <span>{content.year}</span>
+                        <span className="mx-1">•</span>
+                        <span>{isMovie(content) ? content.duration : `${(content as Series).seasons.length} Seasons`}</span>
                       </div>
                     </div>
                   </Link>
@@ -225,21 +214,18 @@ const Browse = () => {
                   to={`/series/${show.id}`}
                   className="content-card min-w-[200px] w-[200px]"
                 >
-                  <div className="relative pb-[150%]">
-                    <img 
-                      src={show.thumbnailUrl} 
-                      alt={show.title}
-                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                      <div>
-                        <h3 className="text-white font-medium">{show.title}</h3>
-                        <div className="flex items-center text-xs mt-1">
-                          <span>{show.year}</span>
-                          <span className="mx-1">•</span>
-                          <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
-                        </div>
-                      </div>
+                  <AnimatedThumbnail
+                    src={show.thumbnailUrl}
+                    alt={show.title}
+                    isNew={show.isNew}
+                    isFeatured={show.isFeatured}
+                  />
+                  <div className="mt-2">
+                    <h3 className="text-white font-medium line-clamp-1">{show.title}</h3>
+                    <div className="flex items-center text-xs text-white/70">
+                      <span>{show.year}</span>
+                      <span className="mx-1">•</span>
+                      <span>{show.seasons.length} Season{show.seasons.length > 1 ? 's' : ''}</span>
                     </div>
                   </div>
                 </Link>
@@ -257,21 +243,18 @@ const Browse = () => {
                   to={`/movie/${movie.id}`}
                   className="content-card min-w-[200px] w-[200px]"
                 >
-                  <div className="relative pb-[150%]">
-                    <img 
-                      src={movie.thumbnailUrl} 
-                      alt={movie.title}
-                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                      <div>
-                        <h3 className="text-white font-medium">{movie.title}</h3>
-                        <div className="flex items-center text-xs mt-1">
-                          <span>{movie.year}</span>
-                          <span className="mx-1">•</span>
-                          <span>{movie.duration}</span>
-                        </div>
-                      </div>
+                  <AnimatedThumbnail
+                    src={movie.thumbnailUrl}
+                    alt={movie.title}
+                    isNew={movie.isNew}
+                    isFeatured={movie.isFeatured}
+                  />
+                  <div className="mt-2">
+                    <h3 className="text-white font-medium line-clamp-1">{movie.title}</h3>
+                    <div className="flex items-center text-xs text-white/70">
+                      <span>{movie.year}</span>
+                      <span className="mx-1">•</span>
+                      <span>{movie.duration}</span>
                     </div>
                   </div>
                 </Link>
