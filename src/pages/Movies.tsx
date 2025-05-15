@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { movies, Movie as MovieType } from '@/data/movies';
 import { Film } from 'lucide-react';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const Movies = () => {
   const { auth } = useApp();
@@ -96,55 +97,57 @@ const Movies = () => {
       <section className="py-12 px-4">
         <div className="container mx-auto">
           {filteredMovies.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredMovies.map(movie => (
                 <Link
                   key={movie.id}
                   to={`/movie/${movie.id}`}
                   className="content-card group"
                 >
-                  <div className="relative pb-[150%] rounded-lg overflow-hidden hover-scale">
-                    <img 
-                      src={movie.thumbnailUrl} 
-                      alt={movie.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    
-                    {/* Badges */}
-                    <div className="absolute top-2 right-2 flex flex-col gap-2">
-                      {movie.isNew && (
-                        <span className="bg-sampflix-bright-orange text-white text-xs font-medium px-2 py-1 rounded animate-pulse">
-                          NEW
-                        </span>
-                      )}
-                      {movie.isFeatured && (
-                        <span className="bg-sampflix-purple text-white text-xs font-medium px-2 py-1 rounded">
-                          FEATURED
-                        </span>
-                      )}
-                    </div>
-                    
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 className="text-lg font-bold mb-1">{movie.title}</h3>
-                        <div className="flex items-center text-xs mb-2">
-                          <span className="text-sampflix-bright-orange">{movie.rating}</span>
-                          <span className="mx-1.5 text-white/60">•</span>
-                          <span>{movie.year}</span>
-                          <span className="mx-1.5 text-white/60">•</span>
-                          <span>{movie.duration}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1.5 mb-2">
-                          {movie.genre.map((genre, index) => (
-                            <span key={index} className="text-xs bg-white/20 px-2 py-0.5 rounded">
-                              {genre}
-                            </span>
-                          ))}
-                        </div>
-                        <p className="text-white/70 text-xs line-clamp-2">{movie.description}</p>
+                  <div className="relative rounded-lg overflow-hidden hover-scale">
+                    <AspectRatio ratio={16/9}>
+                      <img 
+                        src={movie.thumbnailUrl} 
+                        alt={movie.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      
+                      {/* Badges */}
+                      <div className="absolute top-2 right-2 flex flex-col gap-2">
+                        {movie.isNew && (
+                          <span className="bg-sampflix-bright-orange text-white text-xs font-medium px-2 py-1 rounded animate-pulse">
+                            NEW
+                          </span>
+                        )}
+                        {movie.isFeatured && (
+                          <span className="bg-sampflix-purple text-white text-xs font-medium px-2 py-1 rounded">
+                            FEATURED
+                          </span>
+                        )}
                       </div>
-                    </div>
+                      
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          <h3 className="text-lg font-bold mb-1">{movie.title}</h3>
+                          <div className="flex items-center text-xs mb-2">
+                            <span className="text-sampflix-bright-orange">{movie.rating}</span>
+                            <span className="mx-1.5 text-white/60">•</span>
+                            <span>{movie.year}</span>
+                            <span className="mx-1.5 text-white/60">•</span>
+                            <span>{movie.duration}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5 mb-2">
+                            {movie.genre.map((genre, index) => (
+                              <span key={index} className="text-xs bg-white/20 px-2 py-0.5 rounded">
+                                {genre}
+                              </span>
+                            ))}
+                          </div>
+                          <p className="text-white/70 text-xs line-clamp-2">{movie.description}</p>
+                        </div>
+                      </div>
+                    </AspectRatio>
                   </div>
                 </Link>
               ))}

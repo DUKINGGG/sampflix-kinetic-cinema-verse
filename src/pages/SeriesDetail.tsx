@@ -1,13 +1,14 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useApp } from '@/contexts/AppContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import VideoPlayer from '@/components/VideoPlayer';
 import { series } from '@/data/series';
-import { Play, Plus, ThumbsUp, ArrowLeft, ChevronDown } from 'lucide-react';
+import { Play, Plus, ThumbsUp, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { Episode, Season } from '@/data/series';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const SeriesDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -91,38 +92,11 @@ const SeriesDetail = () => {
       
       <main className="flex-grow pt-16">
         {isPlaying && currentEpisode ? (
-          <div className="relative w-full h-[calc(100vh-64px)]">
-            <button
-              onClick={() => setIsPlaying(false)}
-              className="absolute top-4 left-4 z-20 bg-black/50 p-2 rounded-full hover:bg-black/70 transition-colors"
-            >
-              <ArrowLeft size={24} />
-            </button>
-            <div className="absolute inset-0 bg-black flex items-center justify-center">
-              <div className="text-center">
-                <div className="mb-6">
-                  <img 
-                    src={currentEpisode.thumbnailUrl} 
-                    alt={currentEpisode.title}
-                    className="max-w-md mx-auto rounded-lg shadow-2xl"
-                  />
-                </div>
-                <h2 className="text-2xl font-bold mb-2">{show.title}</h2>
-                <p className="text-xl mb-2 text-sampflix-bright-orange">
-                  {currentEpisode.title} - Episode {currentEpisode.episodeNumber}
-                </p>
-                <div className="bg-black/50 p-4 rounded-lg mb-6 max-w-md mx-auto">
-                  <p className="text-lg">This is a demo version. Video playback is not available.</p>
-                </div>
-                <button
-                  onClick={() => setIsPlaying(false)}
-                  className="sampflix-button px-8 py-3 text-lg"
-                >
-                  Exit Player
-                </button>
-              </div>
-            </div>
-          </div>
+          <VideoPlayer
+            thumbnailUrl={currentEpisode.thumbnailUrl}
+            title={`${show.title} - ${currentEpisode.title}`}
+            onBack={() => setIsPlaying(false)}
+          />
         ) : (
           <>
             {/* Hero Banner - Updated to be more similar to landing page */}
@@ -135,11 +109,13 @@ const SeriesDetail = () => {
                 <div className="absolute inset-0 overflow-hidden">
                   <div className="absolute inset-0 bg-sampflix-dark-purple/30 z-5" />
                   <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(155,135,245,0.1)_0%,rgba(30,174,219,0)_70%)] z-5" />
-                  <img 
-                    src={show.thumbnailUrl} 
-                    alt={show.title}
-                    className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
-                  />
+                  <AspectRatio ratio={16/9} className="h-full">
+                    <img 
+                      src={show.thumbnailUrl} 
+                      alt={show.title}
+                      className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
+                    />
+                  </AspectRatio>
                 </div>
               </div>
               
@@ -318,15 +294,17 @@ const SeriesDetail = () => {
                         to={`/series/${relatedShow.id}`}
                         className="content-card"
                       >
-                        <div className="relative pb-[150%] rounded-lg overflow-hidden">
-                          <img 
-                            src={relatedShow.thumbnailUrl} 
-                            alt={relatedShow.title}
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
-                            <h3 className="text-white font-medium">{relatedShow.title}</h3>
-                          </div>
+                        <div className="relative rounded-lg overflow-hidden">
+                          <AspectRatio ratio={16/9}>
+                            <img 
+                              src={relatedShow.thumbnailUrl} 
+                              alt={relatedShow.title}
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">
+                              <h3 className="text-white font-medium">{relatedShow.title}</h3>
+                            </div>
+                          </AspectRatio>
                         </div>
                       </Link>
                     ))}

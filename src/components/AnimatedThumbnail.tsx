@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Play } from 'lucide-react';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface AnimatedThumbnailProps {
   src: string;
@@ -21,20 +22,22 @@ const AnimatedThumbnail: React.FC<AnimatedThumbnailProps> = ({
   return (
     <div className={cn("relative group overflow-hidden rounded-md", className)}>
       {/* Main image with hover effect */}
-      <div className="relative aspect-[2/3] w-full overflow-hidden">
-        <img 
-          src={src} 
-          alt={alt}
-          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-        />
-        
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-70 transition-opacity"></div>
-        
-        {/* Animated glow effect on hover */}
-        <div className="absolute inset-0 bg-netflix-red/5 opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(229,9,20,0.2)_0%,rgba(0,0,0,0)_70%)] animate-pulse-soft"></div>
-        </div>
+      <div className="relative w-full overflow-hidden">
+        <AspectRatio ratio={16/9}>
+          <img 
+            src={src} 
+            alt={alt}
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+          />
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-60 group-hover:opacity-70 transition-opacity"></div>
+          
+          {/* Animated glow effect on hover */}
+          <div className="absolute inset-0 bg-netflix-red/5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(229,9,20,0.2)_0%,rgba(0,0,0,0)_70%)] animate-pulse-soft"></div>
+          </div>
+        </AspectRatio>
       </div>
       
       {/* Badges */}
